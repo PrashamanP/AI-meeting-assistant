@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Core Briefing – AI Assistant</title>
+  <title>SyncScribe - AI Assistant</title>
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 <body class="bg-black text-yellow-300 font-sans">
@@ -12,8 +12,8 @@
   <!-- Header -->
   <header class="bg-yellow-300 text-black py-4 shadow-md flex justify-between items-center px-6">
     <div class="flex items-center gap-4">
-      <img src="{% static 'images/corebriefing-logo.png' %}" alt="The Core Briefing" class="h-10" />
-      <h1 class="text-2xl font-bold">The Core Briefing</h1>
+      <img src="{% static 'images/corebriefing-logo.png' %}" alt="SyncScribe" class="h-10" />
+      <h1 class="text-2xl font-bold">SyncScribe</h1>
     </div>
     {% if user.is_authenticated %}
       <a href="{% url 'logout' %}" class="text-black hover:underline">Logout</a>

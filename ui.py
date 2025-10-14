@@ -390,7 +390,7 @@ def list_kb_files(kb_id):
  
 # LOGIN PAGE
 def login_page():
-    st.set_page_config(page_title="Login - AI Meeting Assistant", layout="centered")
+    st.set_page_config(page_title="Login - SyncScribe", layout="centered")
    
     # Apply custom theme
     apply_custom_theme()
@@ -577,8 +577,8 @@ def login_page():
         # Logo section
         st.markdown("""
         <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #000000; font-size: 2.2em; font-weight: bold; margin: 0 0 10px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">AI Meeting Assistant</h1>
-            <p style="color: #666666; font-size: 1.1em; margin: 0 0 40px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">Internal Meeting Intelligence</p>
+            <h1 style="color: #000000; font-size: 2.2em; font-weight: bold; margin: 0 0 10px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">SyncScribe</h1>
+            <p style="color: #666666; font-size: 1.1em; margin: 0 0 40px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">AI-powered meeting intelligence</p>
         </div>
         """, unsafe_allow_html=True)
        
@@ -626,7 +626,7 @@ def login_page():
                 if res.status_code == 200 and res.json().get("success"):
                     st.session_state.logged_in = True
                     st.session_state.username = username
-                    st.success("✅ Login successful! Welcome to AI Meeting Assistant")
+                    st.success("✅ Login successful! Welcome to SyncScribe")
                     st.rerun()
                 else:
                     st.error("❌ Invalid email or password. Please try again.")
@@ -1052,7 +1052,7 @@ def main():
  
     # Set page config for better layout
     st.set_page_config(
-        page_title="AI Meeting Assistant",
+        page_title="SyncScribe - AI-Powered Meeting Assistant",
         page_icon="🤖",
         layout="wide",
         initial_sidebar_state="collapsed"
@@ -1071,14 +1071,14 @@ def main():
 
         <!-- flex row with title on left and welcome on right -->
         <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h1 style="margin:-20px 0 -10px; color:#000;">AI Meeting Assistant</h1>
+            <h1 style="margin:-20px 0 -10px; color:#000;">SyncScribe</h1>
             <span style="color: #6C757D; font-size:0.9em; font-weight:500;">
             Welcome, {st.session_state.get('username', 'User')}
             </span>
         </div>
 
         <!-- subtitle below -->
-        <p style="margin-top:4px; color:#666;">AI Powered Meeting Intelligence</p>
+        <p style="margin-top:4px; color:#666;">AI-powered meeting intelligence</p>
         </div>
         """, unsafe_allow_html=True)
 

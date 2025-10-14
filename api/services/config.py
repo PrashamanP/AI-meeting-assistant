@@ -35,7 +35,7 @@ def get_sandbox_session():
 
 def get_aws_session_from_dynamodb_user():
     """
-    Fetch permanent AWS credentials for the AI Meeting Assistant from DynamoDB and return a boto3 session.
+    Fetch permanent AWS credentials for SyncScribe from DynamoDB and return a boto3 session.
     """
     dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
     table = dynamodb.Table("aima-aws-credentials")
