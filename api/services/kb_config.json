@@ -1,0 +1,22 @@
+{
+  "coalition-kb": {
+    "prefix": "coalition-kb",
+    "buckets": {
+      "transcripts": "aima-meeting-transcripts",
+      "summaries": "aima-meeting-summaries",
+      "embeddings": "aima-meeting-embeddings",
+      "uploads": "aima-meeting-uploads"
+    }
+  },
+
+  "arch-ops-kb": {
+    "prefix": "arch-ops-kb",
+    "buckets": {
+      "transcripts": "aima-meeting-transcripts",
+      "summaries": "aima-meeting-summaries",
+      "embeddings": "aima-meeting-embeddings",
+      "uploads": "aima-meeting-uploads"
+    }
+  }
+}
+

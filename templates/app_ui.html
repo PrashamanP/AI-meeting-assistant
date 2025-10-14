@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-8 px-4">
+  <h1 class="text-3xl font-bold mb-6">AI Meeting Assistant</h1>
+
+  <!-- 📁 MODE 1: SINGLE FILE MODE -->
+  <div class="bg-white rounded-xl shadow p-6 mb-10">
+    <h2 class="text-xl font-semibold mb-4 text-black">🎞️ Single File Upload</h2>
+    <form id="single-upload-form" action="/upload/" method="post" enctype="multipart/form-data" class="space-y-4">
+      {% csrf_token %}
+      <input type="file" name="file" required class="block w-full border p-2 rounded" />
+      <input type="hidden" name="kb_id" value="">
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Upload & Summarize</button>
+    </form>
+
+    {% if summary %}
+    <!-- 📝 Summary -->
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold text-black mb-2">Meeting Summary</h3>
+      <pre class="bg-gray-100 text-black p-4 rounded whitespace-pre-wrap">{{ summary }}</pre>
+    </div>
+
+    <!-- 🤖 Q&A -->
+    <div class="mt-6">
+      <h3 class="text-lg font-semibold text-black mb-2">Ask a Question</h3>
+      <form id="question-form" hx-post="/ask/" hx-target="#answer-block" hx-swap="innerHTML" class="flex gap-4">
+        <input type="text" name="question" placeholder="Ask about this meeting..." class="flex-1 p-2 border rounded" required />
+        <input type="hidden" name="summary" value="{{ summary|escapejs }}" />
+        <input type="hidden" name="file_key" value="{{ file_key }}" />
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ask</button>
+      </form>
+    </div>
+    <div id="answer-block" class="mt-6"></div>
+    {% endif %}
+  </div>
+
+  <!-- 📚 MODE 2: KNOWLEDGE BASE MODE -->
+  <div class="bg-white rounded-xl shadow p-6">
+    <h2 class="text-xl font-semibold mb-4 text-black">📚 Knowledge Base</h2>
+
+    <!-- KB Selector -->
+    <form id="kb-form" class="mb-4">
+      <label for="kb_id" class="block mb-1 text-black">Select Knowledge Base:</label>
+      <select id="kb_id" name="kb_id" hx-get="/api/kb/files/" hx-target="#kb-files" hx-trigger="change" class="w-full border p-2 rounded">
+        <option value="">-- Choose a KB --</option>
+        {% for kb in kb_list %}
+          <option value="{{ kb }}">{{ kb }}</option>
+        {% endfor %}
+      </select>
+    </form>
+
+    <!-- KB Upload -->
+    <form id="kb-upload-form" action="/upload/" method="post" enctype="multipart/form-data" class="space-y-4 mb-6">
+      {% csrf_token %}
+      <input type="file" name="file" required class="block w-full border p-2 rounded" />
+      <input type="hidden" name="kb_id" id="selected_kb_id_input" />
+      <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Upload to KB</button>
+    </form>
+
+    <!-- Files under KB -->
+    <div id="kb-files" class="mb-6"></div>
+
+    <!-- Chat Interface -->
+    <div id="kb-chat" class="mt-6">
+      <h3 class="text-lg font-semibold text-black mb-2">💬 Ask about KB Files</h3>
+      <form hx-post="/api/kb/ask/" hx-trigger="submit" hx-target="#kb-chat-log" hx-swap="beforeend" id="kb-chat-form">
+        <input type="hidden" name="kb_id" id="selected_kb_id" />
+        <input type="text" name="question" placeholder="Type your question..." required class="p-2 border rounded w-full mb-2" />
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Ask</button>
+      </form>
+      <div id="kb-chat-log" class="flex flex-col gap-2 mt-4"></div>
+      <div class="chat-message user" id="user-question-template" style="display: none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Mermaid + Chat Auto Init -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("htmx:afterSwap", function (evt) {
+    if (evt.detail.target.id === "answer-block" || evt.detail.target.id === "kb-chat-log") {
+      mermaid.init();
+    }
+  });
+
+  // Show user question
+  document.querySelector("#kb-chat-form").addEventListener("submit", function (e) {
+    const input = this.querySelector("input[name='question']");
+    const userMsg = document.getElementById("user-question-template").cloneNode(true);
+    userMsg.textContent = input.value;
+    userMsg.style.display = "block";
+    userMsg.classList.add("chat-message", "user");
+    document.getElementById("kb-chat-log").appendChild(userMsg);
+    input.value = "";
+  });
+
+  // Auto-fill hidden KB input for uploads and chat
+  document.getElementById("kb_id").addEventListener("change", function () {
+    const val = this.value;
+    document.getElementById("selected_kb_id").value = val;
+    document.getElementById("selected_kb_id_input").value = val;
+  });
+</script>
+
+<!-- Styles -->
+<style>
+.chat-message {
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 70%;
+}
+.chat-message.user {
+  background-color: #e5f0ff;
+  align-self: flex-end;
+}
+.chat-message.assistant {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+.mermaid {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,12 @@
+boto3
+streamlit
+langchain
+faiss-cpu
+langchain-community
+langchain-aws
+langchain-openai
+langchain-text-splitters
+python-docx
+django 
+djangorestframework 
+python-dotenv

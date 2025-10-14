@@ -1,0 +1,22 @@
+{
+  "meeting_embeddings_bucket": {
+    "sensitive": false,
+    "type": "string",
+    "value": "aima-meeting-embeddings"
+  },
+  "meeting_summaries_bucket": {
+    "sensitive": false,
+    "type": "string",
+    "value": "aima-meeting-summaries"
+  },
+  "meeting_transcripts_bucket": {
+    "sensitive": false,
+    "type": "string",
+    "value": "aima-meeting-transcripts"
+  },
+  "meeting_uploads_bucket": {
+    "sensitive": false,
+    "type": "string",
+    "value": "aima-meeting-uploads"
+  }
+}

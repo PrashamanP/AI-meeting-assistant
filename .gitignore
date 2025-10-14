@@ -1,0 +1,25 @@
+# Local .terraform directory (stores provider plugins and state cache)
+.terraform/
+
+# Terraform state files (can contain sensitive data like resource IDs, ARNs, etc.)
+*.tfstate
+*.tfstate.backup
+
+# Crash logs (if Terraform crashes)
+crash.log
+
+# Override files (used for local-only configuration)
+terraform.tfvars
+terraform.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Sensitive variable files (if used)
+secrets.tfvars
+
+__pycache__/
+*.py[cod]
+
+.env
