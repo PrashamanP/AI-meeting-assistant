@@ -1,4 +1,4 @@
-# 🧠 AI Meeting Assistant – AI-Powered Meeting Assistant
+# 🧠 AI Powered Meeting Assistant 
 
 AI Meeting Assistant is a streamlined assistant that helps teams get the most out of their meetings. Upload a video or document, get automatic transcripts, summaries, and ask deep questions with flowchart-style answers – all powered by Claude and Bedrock models.
 
